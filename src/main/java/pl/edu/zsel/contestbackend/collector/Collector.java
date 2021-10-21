@@ -31,7 +31,7 @@ public class Collector {
 
         all.forEach(sensor -> {
             if (sensor.getIsActive()) {
-                collectorThreats.add(new CollectorThreat(readingRepository, sensor, sensor.getIpAddress()));
+                collectorThreats.add(new CollectorThreat(readingRepository, sensor));
             }
         });
 

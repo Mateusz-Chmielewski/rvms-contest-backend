@@ -17,12 +17,10 @@ import java.util.List;
 public class CollectorThreat extends Thread{
     private ReadingRepository readingRepository;
     private final Sensor sensor;
-    private final String ipAddress;
 
-    public CollectorThreat(ReadingRepository readingRepository, Sensor sensor, String ipAddress) {
+    public CollectorThreat(ReadingRepository readingRepository, Sensor sensor) {
         this.readingRepository = readingRepository;
         this.sensor = sensor;
-        this.ipAddress = ipAddress;
     }
 
     @Override
@@ -32,7 +30,7 @@ public class CollectorThreat extends Thread{
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://%s".formatted(ipAddress)))
+                    .uri(URI.create("http://%s".formatted(sensor.getIpAddress())))
                     .GET()
                     .build();
 
