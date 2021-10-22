@@ -15,7 +15,7 @@ import java.time.Instant;
 import java.util.List;
 
 public class CollectorThreat extends Thread{
-    private ReadingRepository readingRepository;
+    private final ReadingRepository readingRepository;
     private final Sensor sensor;
 
     public CollectorThreat(ReadingRepository readingRepository, Sensor sensor) {

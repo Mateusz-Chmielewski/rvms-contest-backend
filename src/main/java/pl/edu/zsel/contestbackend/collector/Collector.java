@@ -13,8 +13,8 @@ import java.util.List;
 @Component
 public class Collector {
 
-    private SensorRepository sensorRepository;
-    private ReadingRepository readingRepository;
+    private final SensorRepository sensorRepository;
+    private final ReadingRepository readingRepository;
     private static final int SECONDS = 60;
 
     @Autowired
