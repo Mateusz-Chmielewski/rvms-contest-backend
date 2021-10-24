@@ -8,6 +8,6 @@ import pl.edu.zsel.contestbackend.sensor.model.Sensor;
 import java.util.List;
 
 public interface ReadingRepository extends JpaRepository<Reading, Integer> {
-    @Query("select r from Reading r where r.sensorId = ?1")
-    public List<Reading> findBySensorId(Sensor sensorId);
+    @Query("select r from Reading r where r.sensorId.id = ?1")
+    public List<Reading> findBySensorId(Integer sensorId);
 }

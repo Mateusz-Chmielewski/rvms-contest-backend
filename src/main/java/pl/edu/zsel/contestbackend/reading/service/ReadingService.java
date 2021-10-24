@@ -24,13 +24,7 @@ public class ReadingService {
     }
 
     public ResponseEntity<List<Reading>> getReadingsForSensor(Integer sensorID) {
-        Optional<Sensor> sensorOptional = sensorRepository.findById(sensorID);
-
-        if (sensorOptional.isPresent()) {
-            List<Reading> readings = readingRepository.findBySensorId(sensorOptional.get());
-            return ResponseEntity.ok(readings);
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        List<Reading> readings = readingRepository.findBySensorId(sensorID);
+        return ResponseEntity.ok(readings);
     }
 }
