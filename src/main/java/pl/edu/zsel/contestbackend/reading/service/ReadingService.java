@@ -1,16 +1,15 @@
 package pl.edu.zsel.contestbackend.reading.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.edu.zsel.contestbackend.reading.dao.ReadingRepository;
 import pl.edu.zsel.contestbackend.reading.model.Reading;
 import pl.edu.zsel.contestbackend.sensor.dao.SensorRepository;
-import pl.edu.zsel.contestbackend.sensor.model.Sensor;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReadingService {
@@ -23,8 +22,18 @@ public class ReadingService {
         this.sensorRepository = sensorRepository;
     }
 
-    public ResponseEntity<List<Reading>> getReadingsForSensor(Integer sensorID) {
-        List<Reading> readings = readingRepository.findBySensorId(sensorID);
+    public ResponseEntity<List<Reading>> getReadingsForSensor(Integer sensorId) {
+        List<Reading> readings = readingRepository.findBySensorId(sensorId);
+        return ResponseEntity.ok(readings);
+    }
+
+    public ResponseEntity<List<Reading>> getReadingsForSensorInLastTime(Integer sensorId, Integer minutes) {
+        System.out.println(Instant.now().minus(minutes, ChronoUnit.MINUTES));
+        List<Reading> readings = readingRepository.findBySensorIdAndWhenDateIsGreater(
+                sensorId,
+                Instant.now().minus(minutes, ChronoUnit.MINUTES)
+        );
+
         return ResponseEntity.ok(readings);
     }
 }

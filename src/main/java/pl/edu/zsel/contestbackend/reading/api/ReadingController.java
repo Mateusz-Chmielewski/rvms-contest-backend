@@ -2,18 +2,15 @@ package pl.edu.zsel.contestbackend.reading.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.zsel.contestbackend.reading.model.Reading;
 import pl.edu.zsel.contestbackend.reading.service.ReadingService;
 
-import java.nio.file.Path;
 import java.util.List;
 
 @RequestMapping("api/v1/reading")
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class ReadingController {
     public final ReadingService readingService;
 
@@ -26,5 +23,14 @@ public class ReadingController {
     public ResponseEntity<List<Reading>> getReadingsForSensor(@PathVariable("sensorId") Integer sensorID) {
         return readingService.getReadingsForSensor(sensorID);
     }
+
+    @GetMapping(path = "{sensorId}/{minutes}")
+    public ResponseEntity<List<Reading>> getReadingsForSensorInLastTime(
+            @PathVariable("sensorId") Integer sensorId,
+            @PathVariable("minutes") Integer minutes
+    ) {
+        return readingService.getReadingsForSensorInLastTime(sensorId, minutes);
+    };
+
 
 }
