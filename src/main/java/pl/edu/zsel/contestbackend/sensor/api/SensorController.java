@@ -10,7 +10,7 @@ import java.util.List;
 
 @RequestMapping("api/v1/sensor")
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class SensorController {
     private final SensorService sensorService;
 
