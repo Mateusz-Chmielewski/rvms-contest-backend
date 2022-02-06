@@ -31,8 +31,23 @@ public class SensorController {
     }
 
     @PostMapping(path = "active/{id}")
-    public ResponseEntity<Void> setSensorActivity(@PathVariable("id") Integer sensorId, @RequestBody ObjectNode requestBody) {
+    public ResponseEntity<Void> setSensorActivity(
+            @PathVariable("id") Integer sensorId,
+            @RequestBody ObjectNode requestBody
+    ) {
         return sensorService.setSensorActivity(sensorId, requestBody.get("isActive").asBoolean());
+    }
+
+    @PostMapping(path = "describe/{id}")
+    public ResponseEntity<Void> setSensorIpAddressAndRoomName(
+            @PathVariable("id") Integer sensorId,
+            @RequestBody ObjectNode requestBody
+    ) {
+        return sensorService.setSensorIpAddressAndRoomName(
+                sensorId,
+                requestBody.get("ipAddress").asText(),
+                requestBody.get("roomName").asText()
+        );
     }
 
 }

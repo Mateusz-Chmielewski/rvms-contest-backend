@@ -42,4 +42,19 @@ public class SensorService {
 
         return ResponseEntity.ok().build();
     }
+
+    public ResponseEntity<Void> setSensorIpAddressAndRoomName(Integer sensorId, String ipAddress, String roomName) {
+        Optional<Sensor> optionalSensor = sensorRepository.findById(sensorId);
+
+        if (optionalSensor.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Sensor sensor = optionalSensor.get();
+        sensor.setIpAddress(ipAddress);
+        sensor.setRoomName(roomName);
+        sensorRepository.save(sensor);
+
+        return ResponseEntity.ok().build();
+    }
 }
