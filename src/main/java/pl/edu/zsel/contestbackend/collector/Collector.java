@@ -15,7 +15,7 @@ public class Collector {
 
     private final SensorRepository sensorRepository;
     private final ReadingRepository readingRepository;
-    private static final int SECONDS = 60;
+    private static final int SECONDS = 30;
 
     @Autowired
     public Collector(SensorRepository sensorRepository, ReadingRepository readingRepository) {

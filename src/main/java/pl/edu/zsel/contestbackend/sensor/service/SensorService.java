@@ -1,7 +1,6 @@
 package pl.edu.zsel.contestbackend.sensor.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.edu.zsel.contestbackend.sensor.dao.SensorRepository;
@@ -27,10 +26,20 @@ public class SensorService {
     public ResponseEntity<Sensor> getSensor(Integer sensorId) {
         Optional<Sensor> sensorOptional = sensorRepository.findById(sensorId);
 
-        if (sensorOptional.isPresent()) {
-            return ResponseEntity.ok(sensorOptional.get());
+        return sensorOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    public ResponseEntity<Void> setSensorActivity(Integer sensorId, Boolean isActive) {
+        Optional<Sensor> optionalSensor = sensorRepository.findById(sensorId);
+
+        if (optionalSensor.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        Sensor sensor = optionalSensor.get();
+        sensor.setIsActive(isActive);
+        sensorRepository.save(sensor);
+
+        return ResponseEntity.ok().build();
     }
 }

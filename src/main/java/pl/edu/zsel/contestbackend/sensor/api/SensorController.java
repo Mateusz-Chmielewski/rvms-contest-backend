@@ -1,5 +1,6 @@
 package pl.edu.zsel.contestbackend.sensor.api;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,11 @@ public class SensorController {
     @GetMapping(path = "{id}")
     public ResponseEntity<Sensor> getSensor(@PathVariable("id") Integer sensorId) {
         return sensorService.getSensor(sensorId);
+    }
+
+    @PostMapping(path = "active/{id}")
+    public ResponseEntity<Void> setSensorActivity(@PathVariable("id") Integer sensorId, @RequestBody ObjectNode requestBody) {
+        return sensorService.setSensorActivity(sensorId, requestBody.get("isActive").asBoolean());
     }
 
 }
