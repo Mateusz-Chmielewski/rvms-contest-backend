@@ -57,4 +57,9 @@ public class SensorService {
 
         return ResponseEntity.ok().build();
     }
+
+    public ResponseEntity<Void> addSensor(Sensor sensor) {
+        sensorRepository.save(sensor);
+        return ResponseEntity.ok().build();
+    }
 }

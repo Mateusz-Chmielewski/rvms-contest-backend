@@ -50,4 +50,9 @@ public class SensorController {
         );
     }
 
+    @PostMapping
+    public ResponseEntity<Void> addSensor(@RequestBody Sensor sensor) {
+        return sensorService.addSensor(sensor);
+    }
+
 }
