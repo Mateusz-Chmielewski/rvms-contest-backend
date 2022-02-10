@@ -55,4 +55,8 @@ public class SensorController {
         return sensorService.addSensor(sensor);
     }
 
+    @DeleteMapping(path = "{id}")
+    public ResponseEntity<Void> deleteSensor(@PathVariable("id") Integer sensorId) {
+        return sensorService.deleteSensor(sensorId);
+    }
 }

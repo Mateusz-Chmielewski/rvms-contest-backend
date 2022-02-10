@@ -62,4 +62,13 @@ public class SensorService {
         sensorRepository.save(sensor);
         return ResponseEntity.ok().build();
     }
+
+    public ResponseEntity<Void> deleteSensor(Integer sensorId) {
+        if (sensorRepository.findById(sensorId).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        sensorRepository.deleteById(sensorId);
+        return ResponseEntity.ok().build();
+    }
 }
